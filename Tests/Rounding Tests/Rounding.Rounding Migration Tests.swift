@@ -1,15 +1,15 @@
 import Rounding
 import Testing
 
-@Suite("Rounding")
-struct NumericRoundingTests {
-    @Suite struct Unit {}
-    @Suite struct EdgeCase {}
-    @Suite struct Integration {}
-    @Suite(.serialized) struct Performance {}
+@Suite
+struct `Rounding applies directed and nearest policies` {
+    @Suite struct `Unit tests` {}
+    @Suite struct `Edge cases` {}
+    @Suite struct `Integration tests` {}
+    @Suite(.serialized) struct `Performance tests` {}
 }
 
-extension NumericRoundingTests.Unit {
+extension `Rounding applies directed and nearest policies`.`Unit tests` {
     @Test
     func `directed rounding modes`() throws {
         #expect(try 2.5.rounding(.down) == 2.0)
@@ -46,7 +46,7 @@ extension NumericRoundingTests.Unit {
     }
 }
 
-extension NumericRoundingTests.EdgeCase {
+extension `Rounding applies directed and nearest policies`.`Edge cases` {
     @Test
     func `negative values with directed rounding`() throws {
         #expect(try (-2.5).rounding(.down) == -3.0)

@@ -1,8 +1,8 @@
 import Rounding
 import Testing
 
-@Suite struct RoundingContractTests {
-    @Test func failuresAndSignedZero() throws {
+@Suite struct `Rounding enforces its numerical contract` {
+    @Test func `Rounding rejects invalid values and preserves signed zero`() throws {
         #expect(throws: Rounding.Error.nonfinite) { try Rounding.down(Double.nan) }
         #expect(throws: Rounding.Error.nonfinite) { try Rounding.even(Double.infinity) }
         #expect(throws: Rounding.Error.inexact) { try Rounding.exact(1.5) }
@@ -10,7 +10,7 @@ import Testing
         #expect(try Rounding.zero(-0.25).sign == .minus)
     }
 
-    @Test func agreesWithSwiftRulesAcrossHalfwayAndAdjacentValues() throws {
+    @Test func `Rounding agrees with Swift at halfway and adjacent values`() throws {
         let policies: [(Rounding, FloatingPointRoundingRule)] = [
             (.down, .down), (.up, .up), (.zero, .towardZero), (.away, .awayFromZero),
             (.even, .toNearestOrEven), (.nearest(.away), .toNearestOrAwayFromZero),
