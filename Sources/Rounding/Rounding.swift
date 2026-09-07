@@ -1,12 +1,12 @@
 public import Comparison
 
-/// A policy for choosing an integral result from an exact or fractional value.
+
 public enum Rounding: Sendable, Equatable {
     case direction(Direction)
     case nearest(Nearest)
-    /// Preserve exact integers; otherwise choose the adjacent odd integer.
+
     case odd
-    /// Permit only an already integral value.
+
     case exact
 
     public enum Direction: Sendable, Equatable, CaseIterable { case down, up, zero, away }
@@ -19,9 +19,9 @@ public enum Rounding: Sendable, Equatable {
     public static var away: Self { .direction(.away) }
     public static var even: Self { .nearest(.even) }
 
-    /// Whether to increment the magnitude of a quotient truncated toward zero.
-    /// `fractionComparedToHalf == nil` means there is no fractional part.
-    /// Otherwise compare its magnitude with one half, independently of its sign.
+
+
+
     public func incrementsMagnitude(
         isNegative: Bool,
         integralPartIsOdd: Bool,
@@ -51,7 +51,7 @@ public enum Rounding: Sendable, Equatable {
         }
     }
 
-    /// Rounds a finite scalar in its own representation, preserving signed zero.
+
     public func callAsFunction<T: FloatingPoint>(_ value: T) throws(Error) -> T {
         guard value.isFinite else { throw .nonfinite }
         let integral = value.rounded(.towardZero)
