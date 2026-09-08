@@ -4,24 +4,24 @@ public import Comparison
 public enum Rounding: Sendable, Equatable {
     case direction(Direction)
     case nearest(Nearest)
-
+    
     case odd
-
+    
     case exact
-
+    
     public enum Direction: Sendable, Equatable, CaseIterable { case down, up, zero, away }
     public enum Nearest: Sendable, Equatable, CaseIterable { case down, up, zero, away, even }
     public enum Error: Swift.Error, Sendable, Equatable { case nonfinite, inexact }
-
+    
     public static var down: Self { .direction(.down) }
     public static var up: Self { .direction(.up) }
     public static var zero: Self { .direction(.zero) }
     public static var away: Self { .direction(.away) }
     public static var even: Self { .nearest(.even) }
-
-
-
-
+    
+    
+    
+    
     public func incrementsMagnitude(
         isNegative: Bool,
         integralPartIsOdd: Bool,
@@ -50,8 +50,8 @@ public enum Rounding: Sendable, Equatable {
             }
         }
     }
-
-
+    
+    
     public func callAsFunction<T: FloatingPoint>(_ value: T) throws(Error) -> T {
         guard value.isFinite else { throw .nonfinite }
         let integral = value.rounded(.towardZero)
