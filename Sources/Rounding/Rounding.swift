@@ -1,5 +1,4 @@
-public import Comparison
-
+public import Order
 
 public enum Rounding: Sendable, Equatable {
     case direction(Direction)
@@ -25,7 +24,7 @@ public enum Rounding: Sendable, Equatable {
     public func incrementsMagnitude(
         isNegative: Bool,
         integralPartIsOdd: Bool,
-        fractionComparedToHalf: Comparison?
+        fractionComparedToHalf: Order.Comparison?
     ) throws(Error) -> Bool {
         guard let comparison = fractionComparedToHalf else { return false }
         switch self {
@@ -57,7 +56,7 @@ public enum Rounding: Sendable, Equatable {
         let integral = value.rounded(.towardZero)
         let fraction = (value - integral).magnitude
         let half: T = 1 / 2
-        let comparison: Comparison? = fraction == 0 ? nil : (fraction < half ? .less : (fraction > half ? .greater : .equal))
+        let comparison: Order.Comparison? = fraction == 0 ? nil : (fraction < half ? .less : (fraction > half ? .greater : .equal))
         let increment = try incrementsMagnitude(
             isNegative: value.sign == .minus,
             integralPartIsOdd: integral.truncatingRemainder(dividingBy: 2) != 0,

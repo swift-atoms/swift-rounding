@@ -10,10 +10,10 @@ let package = Package(
         .library(name: "Rounding Test Support", targets: ["Rounding Test Support"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/swift-atoms/swift-comparison.git", branch: "main"),
+        .package(url: "https://github.com/swift-atoms/swift-order.git", branch: "main"),
     ],
     targets: [
-        .target(name: "Rounding", dependencies: [.product(name: "Comparison", package: "swift-comparison")], path: "Sources/Rounding"),
+        .target(name: "Rounding", dependencies: [.product(name: "Order", package: "swift-order")], path: "Sources/Rounding"),
         .target(name: "Rounding Foundation Integration", dependencies: ["Rounding"], path: "Sources/Rounding Foundation Integration"),
         .target(name: "Rounding Test Support", dependencies: ["Rounding"], path: "Tests/Support"),
         .testTarget(name: "Rounding Tests", dependencies: ["Rounding", "Rounding Foundation Integration", "Rounding Test Support"], path: "Tests/Rounding Tests"),
