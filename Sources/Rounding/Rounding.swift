@@ -7,11 +7,9 @@ public enum Rounding: Sendable, Equatable {
     case odd
     
     case exact
-    
-    public enum Direction: Sendable, Equatable, CaseIterable { case down, up, zero, away }
-    public enum Nearest: Sendable, Equatable, CaseIterable { case down, up, zero, away, even }
-    public enum Error: Swift.Error, Sendable, Equatable { case nonfinite, inexact }
-    
+}
+
+extension Rounding {
     public static var down: Self { .direction(.down) }
     public static var up: Self { .direction(.up) }
     public static var zero: Self { .direction(.zero) }
@@ -67,7 +65,5 @@ public enum Rounding: Sendable, Equatable {
 }
 
 #if !hasFeature(Embedded)
-extension Rounding: Swift.Codable {}
-extension Rounding.Direction: Swift.Codable {}
-extension Rounding.Nearest: Swift.Codable {}
+extension Rounding: Swift::Codable {}
 #endif

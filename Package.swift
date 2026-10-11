@@ -14,14 +14,14 @@ let package = Package(
     ],
     targets: [
         .target(name: "Rounding", dependencies: [.product(name: "Order", package: "swift-order")], path: "Sources/Rounding"),
-        .target(name: "Rounding Foundation Integration", dependencies: ["Rounding"], path: "Sources/Rounding Foundation Integration"),
-        .target(name: "Rounding Test Support", dependencies: ["Rounding"], path: "Tests/Support"),
-        .testTarget(name: "Rounding Tests", dependencies: ["Rounding", "Rounding Foundation Integration", "Rounding Test Support"], path: "Tests/Rounding Tests"),
+        .target(name: "Rounding Foundation Integration", dependencies: [.target(name: "Rounding")], path: "Sources/Rounding Foundation Integration"),
+        .target(name: "Rounding Test Support", dependencies: [.target(name: "Rounding")], path: "Tests/Support"),
+        .testTarget(name: "Rounding Tests", dependencies: [.target(name: "Rounding"), .target(name: "Rounding Test Support")], path: "Tests/Rounding Tests"),
     ],
     swiftLanguageModes: [.v6]
 )
 
-for target in package.targets where ![.system, .binary, .plugin].contains(target.type) {
+for target in package.targets where ![.system, .binary, .plugin, .macro].contains(target.type) {
     target.swiftSettings = (target.swiftSettings ?? []) + [
         .strictMemorySafety(),
         .enableUpcomingFeature("ExistentialAny"),
