@@ -1,11 +1,11 @@
 public import Order
 
-public enum Rounding: Sendable, Equatable {
+public enum Rounding: Sendable, Hashable {
     case direction(Direction)
     case nearest(Nearest)
-    
+
     case odd
-    
+
     case exact
 }
 
@@ -15,10 +15,7 @@ extension Rounding {
     public static var zero: Self { .direction(.zero) }
     public static var away: Self { .direction(.away) }
     public static var even: Self { .nearest(.even) }
-    
-    
-    
-    
+
     public func incrementsMagnitude(
         isNegative: Bool,
         integralPartIsOdd: Bool,
@@ -47,8 +44,7 @@ extension Rounding {
             }
         }
     }
-    
-    
+
     public func callAsFunction<T: FloatingPoint>(_ value: T) throws(Error) -> T {
         guard value.isFinite else { throw .nonfinite }
         let integral = value.rounded(.towardZero)
@@ -65,5 +61,5 @@ extension Rounding {
 }
 
 #if !hasFeature(Embedded)
-extension Rounding: Swift::Codable {}
+    extension Rounding: Swift::Codable {}
 #endif
