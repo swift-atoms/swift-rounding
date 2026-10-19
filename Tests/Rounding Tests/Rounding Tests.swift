@@ -24,4 +24,15 @@ import Testing
             }
         }
     }
+
+    @Test func `Rounding converts each standard rule to the policy with the same results`() throws {
+        let rules: [FloatingPointRoundingRule] = [
+            .down, .up, .towardZero, .awayFromZero, .toNearestOrEven, .toNearestOrAwayFromZero,
+        ]
+        for rule in rules {
+            for value in [-2.5, -1.5, -0.5, 0.5, 1.5, 2.5, 2.25, -2.75] {
+                #expect(try Rounding(rule)(value) == value.rounded(rule))
+            }
+        }
+    }
 }
