@@ -1,15 +1,25 @@
 import Rounding
 import Testing
 
-@Suite
-struct `Rounding applies directed and nearest policies` {
+enum `Rounding.Rounding Migration Tests` {}
+
+extension `Rounding.Rounding Migration Tests` {
+    @Suite
+    struct `Rounding applies directed and nearest policies` {
+    }
+}
+
+extension `Rounding.Rounding Migration Tests`.`Rounding applies directed and nearest policies` {
     @Suite struct `Scalar rounding follows directed nearest exact and odd policies` {}
+
     @Suite struct `Scalar rounding handles negative values and values away from ties` {}
+
     @Suite struct `No scalar rounding integration cases are defined` {}
+
     @Suite(.serialized) struct `No scalar rounding performance cases are defined` {}
 }
 
-extension `Rounding applies directed and nearest policies`.`Scalar rounding follows directed nearest exact and odd policies` {
+extension `Rounding.Rounding Migration Tests`.`Rounding applies directed and nearest policies`.`Scalar rounding follows directed nearest exact and odd policies` {
     @Test
     func `Directed rounding selects the requested integer boundary`() throws {
         #expect(try 2.5.rounding(.down) == 2.0)
@@ -46,7 +56,7 @@ extension `Rounding applies directed and nearest policies`.`Scalar rounding foll
     }
 }
 
-extension `Rounding applies directed and nearest policies`.`Scalar rounding handles negative values and values away from ties` {
+extension `Rounding.Rounding Migration Tests`.`Rounding applies directed and nearest policies`.`Scalar rounding handles negative values and values away from ties` {
     @Test
     func `Directed rounding handles negative values according to its policy`() throws {
         #expect(try (-2.5).rounding(.down) == -3.0)
